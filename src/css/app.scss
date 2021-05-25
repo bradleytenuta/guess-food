@@ -1,1 +1,13 @@
 // app global css in SCSS form
+@font-face {
+  font-family: GreatVictorian;
+  src: url("~assets/fonts/GreatVictorian-Standard.otf") format("opentype");
+}
+
+* {
+  font-family: GreatVictorian;
+}
+
+.countdown-container {
+  min-width: 290px;
+}
