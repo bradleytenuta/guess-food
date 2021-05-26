@@ -20,11 +20,6 @@ import { defineComponent } from "vue";
 import moment from "moment";
 
 export default defineComponent({
-  mounted() {
-    window.setInterval(() => {
-      this.now = moment().unix();
-    }, 1000);
-  },
   props: {
     date: {
       type: String,
@@ -66,6 +61,11 @@ export default defineComponent({
       }
       return value;
     },
+  },
+  mounted() {
+    window.setInterval(() => {
+      this.now = moment().unix();
+    }, 1000);
   },
 });
 </script>

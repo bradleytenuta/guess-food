@@ -35,12 +35,18 @@ export default defineComponent({
   },
   data() {
     return {
-      dateOfDinner: "2021-05-28 15:00:00",
+      dateOfDinner: "2021-05-28 17:37:00",
+      now: moment().unix(),
     };
+  },
+  mounted() {
+    window.setInterval(() => {
+      this.now = moment();
+    }, 1000);
   },
   computed: {
     daysLeft() {
-      return moment(this.dateOfDinner).diff(moment(), "days", true);
+      return moment(this.dateOfDinner).diff(this.now, "days", true);
     },
   },
 });
