@@ -2,7 +2,7 @@
   <q-page>
     <!-- Timer -->
     <div class="row flex flex-center">
-      <Countdown date="2021-05-28 15:00:00"></Countdown>
+      <Countdown :date="dateOfDinner"></Countdown>
     </div>
 
     <!-- Messgae -->
@@ -11,8 +11,14 @@
     </div>
 
     <!-- Image -->
-    <div class="row flex flex-center">
-      <img alt="Quasar logo" src="~assets/clue1.png" />
+    <div class="row flex flex-center" v-if="daysLeft > 2">
+      <img src="~assets/clue1.png" />
+    </div>
+    <div class="row flex flex-center" v-if="daysLeft <= 2 && daysLeft > 1">
+      <img src="~assets/clue2.png" />
+    </div>
+    <div class="row flex flex-center" v-if="daysLeft <= 1">
+      <img src="~assets/clue3.png" />
     </div>
   </q-page>
 </template>
@@ -20,11 +26,22 @@
 <script>
 import { defineComponent } from "vue";
 import Countdown from "components/Countdown.vue";
+import moment from "moment";
 
 export default defineComponent({
   name: "PageIndex",
   components: {
     Countdown,
+  },
+  data() {
+    return {
+      dateOfDinner: "2021-05-28 15:00:00",
+    };
+  },
+  computed: {
+    daysLeft() {
+      return moment(this.dateOfDinner).diff(moment(), "days", true);
+    },
   },
 });
 </script>
