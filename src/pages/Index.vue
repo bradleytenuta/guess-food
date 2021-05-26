@@ -36,7 +36,7 @@ export default defineComponent({
   data() {
     return {
       dateOfDinner: "2021-05-28 15:00:00",
-      now: moment().unix(),
+      now: moment(),
     };
   },
   mounted() {
