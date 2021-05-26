@@ -17,11 +17,12 @@
 
 <script>
 import { defineComponent } from "vue";
+import moment from "moment";
 
 export default defineComponent({
   mounted() {
     window.setInterval(() => {
-      this.now = Math.trunc(new Date().getTime() / 1000);
+      this.now = moment().unix();
     }, 1000);
   },
   props: {
@@ -31,32 +32,28 @@ export default defineComponent({
   },
   data() {
     return {
-      now: Math.trunc(new Date().getTime() / 1000),
+      now: moment().unix(),
     };
   },
   computed: {
-    dateInMilliseconds() {
-      return Math.trunc(Date.parse(this.date) / 1000);
+    timeTillEvent() {
+      var timeTillEvent = moment.duration(
+        (moment(this.date, "YYYY-MM-DD hh:mm:ss").unix() - this.now) * 1000,
+        "milliseconds"
+      );
+      return moment.duration(timeTillEvent - 1000, "milliseconds");
     },
     seconds() {
-      return this.formatForDoubleDigits(
-        (this.dateInMilliseconds - this.now) % 60
-      );
+      return this.formatForDoubleDigits(this.timeTillEvent.seconds());
     },
     minutes() {
-      return this.formatForDoubleDigits(
-        Math.trunc((this.dateInMilliseconds - this.now) / 60) % 60
-      );
+      return this.formatForDoubleDigits(this.timeTillEvent.minutes());
     },
     hours() {
-      return this.formatForDoubleDigits(
-        Math.trunc((this.dateInMilliseconds - this.now) / 60 / 60) % 24
-      );
+      return this.formatForDoubleDigits(this.timeTillEvent.hours());
     },
     days() {
-      return this.formatForDoubleDigits(
-        Math.trunc((this.dateInMilliseconds - this.now) / 60 / 60 / 24)
-      );
+      return this.formatForDoubleDigits(this.timeTillEvent.days());
     },
   },
   methods: {
